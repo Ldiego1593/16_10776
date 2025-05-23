@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio Personal del Alumno</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .frame-container {
+            display: flex;
+            height: 100vh;
+        }
+        .menu-frame {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .content-frame {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #ecf0f1;
+        }
+        .menu-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #34495e;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu-item:hover {
+            background-color: #1abc9c;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .game-container {
+            width: 100%;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        #snake {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #1abc9c;
+        }
+        .food {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+        }
+        .manual-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="frame-container">
+        <!-- Marco del menú -->
+        <div class="menu-frame">
+            <h2>Menú Principal</h2>
+            <div class="menu-item" onclick="showContent('cv')">Hoja de vida</div>
+            <div class="menu-item" onclick="showContent('grades')">Notas de cursos</div>
+            <div class="menu-item" onclick="showContent('gallery')">Galería</div>
+            <div class="menu-item" onclick="showContent('video')">Video de YouTube</div>
+            <div class="menu-item" onclick="showContent('game')">Juego con JavaScript</div>
+            <div class="menu-item" onclick="showContent('manual')">Manual técnico</div>
+        </div>
+
+        <!-- Marco de contenido -->
+        <div class="content-frame" id="content-frame">
+            <h1 id="content-title">Bienvenido a mi sitio personal</h1>
+            <div id="content-body">
+                <p>Selecciona una opción del menú para ver el contenido.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar el contenido según la opción seleccionada
+        function showContent(section) {
+            const contentFrame = document.getElementById('content-frame');
+            const contentTitle = document.getElementById('content-title');
+            const contentBody = document.getElementById('content-body');
+
+            switch(section) {
+                case 'cv':
+                    contentTitle.textContent = 'Hoja de Vida';
+                    contentBody.innerHTML = `
+                        <h2>Datos Personales</h2>
+                        <p><strong>Nombre:</strong> Luis Diego Godoy Ibáñez</p>
+                        <p><strong>Fecha de Nacimiento:</strong> 16/04/1998</p>
+                        <p><strong>Dirección:</strong> Barrio El Llanito, Cuilapa</p>
+                        <p><strong>Teléfono:</strong> +502 4184 4852</p>
+                        <p><strong>Email:</strong> godoyi@gmail.com</p>
+                        
+                        <h2>Educación</h2>
+                        <p><strong>Universidad Mariano Gálvez de Guatemala</strong> - Ingeniería de Sistemas (2020-2025)</p>
+                        <p><strong>Colegio San José</strong> - Bachiller en Ciencias (2015-2020)</p>
+                        
+                        <h2>Experiencia Laboral</h2>
+                        <p><strong>Desarrollador Web</strong> - Empresa zzz (2021-Presente)</p>
+                        <ul>
+                            <li>Desarrollo de aplicaciones web con React y Node.js</li>
+                            <li>Mantenimiento de bases de datos MySQL</li>
+                            <li>Implementación de APIs RESTful</li>
+                        </ul>
+                        
+                        <h2>Habilidades</h2>
+                        <ul>
+                            <li>HTML, CSS, JavaScript</li>
+                            <li>React, Node.js</li>
+                            <li>MySQL, MongoDB</li>
+                            <li>Git, Docker</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'grades':
+                    contentTitle.textContent = 'Notas de Cursos';
+                    contentBody.innerHTML = `
+                        <h2>Notas del Primer y Segundo Parcial</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Curso</th>
+                                    <th>Primer Parcial</th>
+                                    <th>Segundo Parcial</th>
+                                    <th>Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Programación Web</td>
+                                    <td>18</td>
+                                    <td>17</td>
+                                    <td>17.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Base de Datos</td>
+                                    <td>16</td>
+                                    <td>19</td>
+                                    <td>17.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Inteligencia Artificial</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>15.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Redes de Computadoras</td>
+                                    <td>17</td>
+                                    <td>18</td>
+                                    <td>17.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Ingeniería de Software</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>19.5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                    break;
+                    
+                case 'gallery':
+                    contentTitle.textContent = 'Galería';
+                    contentBody.innerHTML = `
+                        <h2>Mis Fotos</h2>
+                        <div class="gallery">
+                            <img src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBhaXNhamV8ZW58MHx8MHx8fDA%3D" alt="Imagen 1">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5eN2bSAhbJNBKBaHaBtbkwnXuzAgkq-v33Q&s" alt="Imagen 2">
+                            <img src="https://wallpapers.com/images/featured/fondos-de-hermosos-paisajes-wnxju2647uqrcccv.jpg" alt="Imagen 3">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUBojl3NUVaSS_P2KVnqWBzw1N-R7dq4CJRA&s" alt="Imagen 4">
+                            <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Imagen 5">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf4_u9WX65PHV8_-rTdf1PhhgOmSj3oa9gLw&s" alt="Imagen 6">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDWKajP8bMgVB_JP9mtvHg0AtxwUJ4gtCiYQ&s" alt="Imagen 7">
+                            <img src="https://img.freepik.com/foto-gratis/morskie-oko-tatry_1204-510.jpg?semt=ais_hybrid&w=740" alt="Imagen 8">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9C4Qyy2GXIyauGGZ-Crk6y1ARcUw_hqq4JQ&s" alt="Imagen 9">
+                            <img src="https://capasdelatierra.win/wp-content/uploads/paisajes-naturales.jpg" alt="Imagen 10">
+                        </div>
+                    `;
+                    break;
+                    
+                case 'video':
+                    contentTitle.textContent = 'Video de YouTube';
+                    contentBody.innerHTML = `
+                        <h2>Mi Video Favorito</h2>
+                        <div style="max-width: 800px; margin: 0 auto;">
+                            <iframe width="100%" height="450" src="https://www.youtube.com/watch?v=HyHNuVaZJ-k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'game':
+                    contentTitle.textContent = 'Juego con JavaScript';
+                    contentBody.innerHTML = `
+                        <h2>Juego de la Serpiente</h2>
+                        <p>Usa las teclas de dirección para mover la serpiente y comer la comida roja.</p>
+                        <div class="game-container" id="game-container">
+                            <div id="snake"></div>
+                        </div>
+                        <p id="score">Puntuación: 0</p>
+                    `;
+                    initGame();
+                    break;
+                    
+                case 'manual':
+                    contentTitle.textContent = 'Manual Técnico';
+                    contentBody.innerHTML = `
+                        <h2>Pasos para crear este sitio web</h2>
+                        
+                        <div class="manual-step">
+                            <h3>1. Estructura básica</h3>
+                            <p>Creé un documento HTML5 con la estructura básica: doctype, html, head y body.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>2. Diseño con marcos</h3>
+                            <p>Implementé un diseño con dos marcos usando flexbox: uno para el menú (250px) y otro para el contenido principal (flexible).</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>3. Estilos CSS</h3>
+                            <p>Agregué estilos CSS para dar formato al menú, los marcos, tablas, galería y otros elementos visuales.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>4. Funcionalidad JavaScript</h3>
+                            <p>Implementé la función showContent() que cambia dinámicamente el contenido según la opción seleccionada en el menú.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>5. Contenido de las secciones</h3>
+                            <p>Desarrollé cada una de las secciones solicitadas:
+                                <ul>
+                                    <li>Hoja de vida con datos personales, educación y experiencia</li>
+                                    <li>Tabla de notas con datos de ejemplo</li>
+                                    <li>Galería de imágenes usando Unsplash para imágenes aleatorias</li>
+                                    <li>Integración de video de YouTube con iframe</li>
+                                    <li>Juego simple de la serpiente con JavaScript</li>
+                                    <li>Este manual técnico</li>
+                                </ul>
+                            </p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>6. Juego de la Serpiente</h3>
+                            <p>Implementé un juego simple de la serpiente con JavaScript puro:
+                                <ul>
+                                    <li>Detección de teclas de dirección</li>
+                                    <li>Generación aleatoria de comida</li>
+                                    <li>Crecimiento de la serpiente al comer</li>
+                                    <li>Detección de colisiones</li>
+                                    <li>Sistema de puntuación</li>
+                                </ul>
+                            </p>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    contentTitle.textContent = 'Bienvenido a mi sitio personal';
+                    contentBody.innerHTML = '<p>Selecciona una opción del menú para ver el contenido.</p>';
+            }
+        }
+
+        // Juego de la serpiente
+        function initGame() {
+            const container = document.getElementById('game-container');
+            const snake = document.getElementById('snake');
+            const scoreElement = document.getElementById('score');
+            
+            if (!container || !snake || !scoreElement) return;
+            
+            let snakeX = 100;
+            let snakeY = 100;
+            let foodX = 0;
+            let foodY = 0;
+            let velocityX = 0;
+            let velocityY = 0;
+            let snakeBody = [];
+            let gameOver = false;
+            let score = 0;
+            
+            // Posicion inicial de la serpiente
+            snake.style.left = snakeX + 'px';
+            snake.style.top = snakeY + 'px';
+            
+            // Generar comida
+            function generateFood() {
+                foodX = Math.floor(Math.random() * (container.offsetWidth - 20) / 20) * 20;
+                foodY = Math.floor(Math.random() * (container.offsetHeight - 20) / 20) * 20;
+                
+                const food = document.createElement('div');
+                food.className = 'food';
+                food.style.left = foodX + 'px';
+                food.style.top = foodY + 'px';
+                food.id = 'food';
+                container.appendChild(food);
+            }
+            
+            // Detectar teclas
+            document.addEventListener('keydown', changeDirection);
+            
+            function changeDirection(e) {
+                if (e.key === 'ArrowUp' && velocityY !== 20) {
+                    velocityX = 0;
+                    velocityY = -20;
+                } else if (e.key === 'ArrowDown' && velocityY !== -20) {
+                    velocityX = 0;
+                    velocityY = 20;
+                } else if (e.key === 'ArrowLeft' && velocityX !== 20) {
+                    velocityX = -20;
+                    velocityY = 0;
+                } else if (e.key === 'ArrowRight' && velocityX !== -20) {
+                    velocityX = 20;
+                    velocityY = 0;
+                }
+            }
+            
+            // Iniciar juego
+            generateFood();
+            const gameLoop = setInterval(moveSnake, 100);
+            
+            function moveSnake() {
+                if (gameOver) {
+                    clearInterval(gameLoop);
+                    alert('Game Over! Puntuación: ' + score);
+                    return;
+                }
+                
+                // Actualizar posición
+                snakeX += velocityX;
+                snakeY += velocityY;
+                
+                // Verificar colisión con bordes
+                if (snakeX < 0 || snakeX >= container.offsetWidth || 
+                    snakeY < 0 || snakeY >= container.offsetHeight) {
+                    gameOver = true;
+                }
+                
+                // Verificar colisión con comida
+                const food = document.getElementById('food');
+                if (food && Math.abs(snakeX - foodX) < 20 && Math.abs(snakeY - foodY) < 20) {
+                    // Comer comida
+                    container.removeChild(food);
+                    generateFood();
+                    
+                    // Aumentar serpiente
+                    snakeBody.push([snakeX, snakeY]);
+                    score += 10;
+                    scoreElement.textContent = 'Puntuación: ' + score;
+                }
+                
+                // Mover cuerpo de la serpiente
+                for (let i = snakeBody.length - 1; i > 0; i--) {
+                    snakeBody[i] = snakeBody[i - 1];
+                    
+                    // Verificar colisión con el cuerpo
+                    if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
+                        gameOver = true;
+                    }
+                }
+                
+                if (snakeBody.length) {
+                    snakeBody[0] = [snakeX, snakeY];
+                }
+                
+                // Actualizar posición de la cabeza
+                snake.style.left = snakeX + 'px';
+                snake.style.top = snakeY + 'px';
+                
+                // Actualizar cuerpo (en una implementación completa se agregarían segmentos visuales)
+            }
+        }
+    </script>
+</body>
+</html>
